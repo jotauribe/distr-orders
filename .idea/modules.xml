@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/distr-orders.iml" filepath="$PROJECT_DIR$/.idea/modules/distr-orders.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/distr-orders_main.iml" filepath="$PROJECT_DIR$/.idea/modules/distr-orders_main.iml" group="distr-orders" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/distr-orders_test.iml" filepath="$PROJECT_DIR$/.idea/modules/distr-orders_test.iml" group="distr-orders" />
+    </modules>
+  </component>
+</project>
