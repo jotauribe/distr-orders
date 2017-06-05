@@ -1,4 +1,4 @@
-package co.distr.orders.domain.model.order;
+package co.distr.orders.domain.model.client;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -6,21 +6,21 @@ import java.io.Serializable;
 import java.util.UUID;
 
 /**
- * Created by Personal on 03/06/2017.
+ * Created by Guess on 4/6/2017.
  */
 
 @Embeddable
-public class OrderId implements Serializable{
+public class ClientId implements Serializable{
 
     @Column(name = "ID")
     private String id;
 
-    protected OrderId(){
+    protected ClientId(){
         this.id = UUID.randomUUID().toString();
     }
 
     public String asString(){
-        return id;
+        return this.id;
     }
 
     @Override
@@ -28,9 +28,9 @@ public class OrderId implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrderId orderId = (OrderId) o;
+        ClientId clientId = (ClientId) o;
 
-        return id.equals(orderId.id);
+        return id.equals(clientId.id);
     }
 
     @Override

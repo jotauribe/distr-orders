@@ -2,13 +2,14 @@ package co.distr.orders.domain.model.product;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Created by Personal on 03/06/2017.
  */
 @Embeddable
-public class ProductId {
+public class ProductId implements Serializable{
 
     @Column(name = "ID")
     protected String id;

@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="distr-orders_main" target="1.8" />
       <module name="distr-orders_test" target="1.8" />
+      <module name="IdeaProjects-distr-orders_main" target="1.8" />
+      <module name="IdeaProjects-distr-orders_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
