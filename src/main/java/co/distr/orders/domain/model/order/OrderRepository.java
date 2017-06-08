@@ -6,12 +6,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Created by Guess on 4/6/2017.
+ * Created by Jota on 4/6/2017.
  */
-@ApplicationScoped
+@javax.faces.bean.ApplicationScoped
 public class OrderRepository {
 
-    @PersistenceContext(unitName = "MySQLPersistenceUnit")
+    @PersistenceContext
     private EntityManager entityManager;
 
     protected OrderRepository(){}
@@ -20,9 +20,10 @@ public class OrderRepository {
         entityManager.persist(order);
     }
 
-    public Order OrderOfId(){
-        //TODO: Implement
-        return null;
+    public Order find(OrderId orderId){
+        return entityManager.createNamedQuery("Order.findByOrderId",
+                Order.class).setParameter("OrderId", orderId)
+                .getSingleResult();
     }
 
 

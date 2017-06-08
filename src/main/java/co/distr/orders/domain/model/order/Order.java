@@ -11,6 +11,10 @@ import java.util.List;
  * Created by Personal on 03/06/2017.
  */
 @Entity(name = "ORDERS")
+@NamedQueries({
+        @NamedQuery(name = "Order.findByOrderId",
+                query = "Select o from ORDERS o where o.id = :OrderId")
+})
 public class Order {
 
     @EmbeddedId
