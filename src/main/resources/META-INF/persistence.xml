@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <persistence
         version="2.1"
         xmlns="http://xmlns.jcp.org/xml/ns/persistence"
@@ -8,8 +9,9 @@
         <jta-data-source>java:jboss/datasources/DistrOrders</jta-data-source>
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-            <property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"></property>
+            <property name="javax.persistence.schema-generation-target" value="database-and-scripts"/>
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/insert.sql" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
         </properties>
     </persistence-unit>
 </persistence>

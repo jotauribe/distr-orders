@@ -2,6 +2,8 @@ package co.distr.orders.domain.model.order;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -10,16 +12,22 @@ import java.util.UUID;
  */
 
 @Embeddable
+@XmlRootElement
 public class OrderId implements Serializable{
 
-    @Column(name = "ID")
+    @Column(name = "ORDER_ID")
     private String id;
 
-    protected OrderId(){
+    public OrderId(){
         this.id = UUID.randomUUID().toString();
     }
 
-    public String asString(){
+    public OrderId(String id){
+        this.id = id;
+    }
+
+    @XmlElement
+    public String getId(){
         return id;
     }
 

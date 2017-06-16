@@ -1,6 +1,5 @@
 package co.distr.orders.domain.model.order;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -8,7 +7,7 @@ import javax.persistence.PersistenceContext;
 /**
  * Created by Jota on 4/6/2017.
  */
-@javax.faces.bean.ApplicationScoped
+@ApplicationScoped
 public class OrderRepository {
 
     @PersistenceContext

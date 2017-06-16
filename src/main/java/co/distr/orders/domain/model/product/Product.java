@@ -1,17 +1,26 @@
 package co.distr.orders.domain.model.product;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
 /**
- * Created by Personal on 03/06/2017.
+ * Created by Jota Uribe on 03/06/2017.
  */
+
+@XmlRootElement
 @Entity(name = "PRODUCTS")
+@NamedQueries({
+        @NamedQuery(name = "Product.findByProductId",
+                query = "Select p from PRODUCTS p where p.productId = :ProductId"),
+        @NamedQuery(name = "Product.findByProductName",
+                query = "Select p from PRODUCTS p where SUBSTRING(p.productId, 0) = :String"),
+        @NamedQuery(name = "Product.findAll",
+                query = "Select p from PRODUCTS p")
+})
 public class Product {
 
     @EmbeddedId
-    private ProductId id;
+    private ProductId productId;
 
     @Column(name = "NAME")
     private String name;
@@ -21,17 +30,38 @@ public class Product {
 
     protected Product(){}
 
-    public Product(ProductId id, String name, double price){
-        this.id = id;
+    public Product(ProductId productId, String name, double price){
+        this.productId = productId;
+        setName(name);
+        setPrice(price);
+    }
+
+    private void setName(String name){
+        if(name == null)
+            throw  new IllegalArgumentException("Name can not be null");
+        if(name.length() < 5)
+            throw  new IllegalArgumentException("Name length must be greater than 4");
         this.name = name;
+    }
+
+    private void setPrice(double price){
+        if(price < 0)
+            throw  new IllegalArgumentException("Price can not be a negative number");
         this.price = price;
     }
 
-    public String getName() {
+    @XmlElement
+    public ProductId id(){
+        return productId;
+    }
+
+    @XmlElement
+    public String name() {
         return name;
     }
 
-    public double getPrice() {
+    @XmlElement
+    public double price() {
         return price;
     }
 
@@ -42,11 +72,11 @@ public class Product {
 
         Product product = (Product) o;
 
-        return id.equals(product.id);
+        return productId.equals(product.productId);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return productId.hashCode();
     }
 }

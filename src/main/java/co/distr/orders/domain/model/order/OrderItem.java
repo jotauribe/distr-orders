@@ -3,22 +3,21 @@ package co.distr.orders.domain.model.order;
 import co.distr.orders.domain.model.product.Product;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by Personal on 03/06/2017.
  */
 
 @Entity
+@XmlRootElement
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private long id;
-
-    @ManyToOne
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
 
     @OneToOne
     @JoinColumn(name = "PRODUCT_ID")
@@ -27,18 +26,64 @@ public class OrderItem {
     @Column(name = "QUANTITY")
     private int quantity;
 
-    @Column(name = "SUBTOTAL")
-    private double subTotal;
+    @Column(name = "TOTAL")
+    private double total;
 
     protected OrderItem(){}
 
+    public OrderItem(long id, Product product, double quantity, double total){
+        setProduct(product);
+        setQuantity(quantity);
+        //this.id = id;
+    }
 
-    public Product product() {
+    public OrderItem(Product product, double quantity){
+        setProduct(product);
+        setQuantity(quantity);
+    }
+
+    private void setProduct(Product product){
+        if(product == null)
+            throw new IllegalArgumentException("Product can not be null");
+        this.product = product;
+    }
+
+    private void setQuantity(double quantity){
+        if(quantity <= 0)
+            throw new IllegalArgumentException("Quantity cmust be greater than 0");
+        this.quantity = (int)quantity;
+    }
+
+    @XmlElement
+    public long id(){
+        return id;
+    }
+
+    @XmlElement
+    public Product getProduct() {
         return product;
     }
 
-    public int quantity() {
+    public String productName(){
+        return product.name();
+    }
+
+    public String productId(){
+        return product.id().toString();
+    }
+
+    public double productPrice(){
+        return product.price();
+    }
+
+    @XmlElement
+    public int getQuantity() {
         return quantity;
+    }
+
+    @XmlElement
+    public double getTotal(){
+        return product.price() * this.getQuantity();
     }
 
     public void changeQuantity(int quantity) {
@@ -51,26 +96,23 @@ public class OrderItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrderItem that = (OrderItem) o;
+        OrderItem orderItem = (OrderItem) o;
 
-        if (id != that.id) return false;
-        return order.equals(that.order);
+        return id == orderItem.id;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + order.hashCode();
-        return result;
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override
     public String toString() {
         return "OrderItem{" +
-                "id=" + id +
-                ", product=" + product +
-                ", quantity=" + quantity +
-                ", subTotal=" + subTotal +
+                "getOrderId=" + id +
+                ", getProduct=" + product +
+                ", getQuantity=" + quantity +
+                ", total=" + total +
                 '}';
     }
 }

@@ -3,16 +3,18 @@ package co.distr.orders.domain.model.client;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by Personal on 03/06/2017.
  */
 
+@XmlRootElement
 @Entity(name = "CLIENT")
 public class Client {
 
     @EmbeddedId
-    private ClientId id;
+    private ClientId clientId;
 
     @Column(name = "NAME")
     private String name;
@@ -22,7 +24,8 @@ public class Client {
 
     protected Client(){}
 
-    public Client(String name, String address){
+    public Client(ClientId clientId, String name, String address){
+        this.clientId = clientId;
         setName(name);
         setAddress(address);
     }
@@ -43,4 +46,15 @@ public class Client {
         this.address = address;
     }
 
+    public ClientId getClientId() {
+        return clientId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }
